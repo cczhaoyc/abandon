@@ -1,2 +1,0 @@
-# abandon
-SpringBoot+MyBatis+MySQL
