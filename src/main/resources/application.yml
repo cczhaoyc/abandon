@@ -1,0 +1,81 @@
+###################################################
+#
+# Spring基础配置
+#
+###################################################
+spring:
+  application:
+    name: abandon
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+    multipart:
+      max-file-size: 30Mb
+      max-request-size: 100Mb
+  jackson:
+    date-format: yyyy-MM-dd hh:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: NON_NULL
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+
+  #热部署生效
+  devtools:
+    restart:
+      enabled: true
+      exclude: WEB-INF/**
+      additional-paths: src/main/java
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: 0
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/idb?useSSL=false&useUnicode=true&characterEncoding=utf8
+    password: root
+    username: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 30
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: select 'x'
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      remove-abandoned: true
+      remove-abandoned-timeout: 1800
+      log-abandoned: true
+      filters: mergeStat
+
+server:
+  port: 9999
+  tomcat:
+    uri-encoding: utf-8
+
+mybatis:
+  type-aliases-package: com.suxia.abandon.domain
+  mapper-locations: classpath:mapper/*.xml
+
+mapper:
+  mappers: com.suxia.abandon.util.MyMapper
+  not-empty: false
+  identity: MYSQL
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
